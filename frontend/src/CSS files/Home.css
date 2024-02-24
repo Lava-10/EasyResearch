@@ -1,0 +1,222 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+* {
+    margin: 0;
+}
+html {
+    scroll-behavior: smooth;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter';
+    background: linear-gradient(to top right, rgb(248, 253, 255) 40%, rgb(190, 226, 255) 80%);
+}
+.mainbox {
+    display: flex;
+    flex-direction: column;
+    background-color: inherit;
+    width: auto;
+    margin: auto;  
+    height: auto; 
+    align-items: center;
+    justify-content: center;
+
+    /*background-color: rgb(165, 206, 211);*/
+}
+.mainbox h1 {
+    color: rgb(48, 101, 154);
+    font-size: 8em;
+    z-index: 0;
+    position: relative; /* Important for positioning the pseudo-element */
+    margin: 0; /* Remove default margin */
+    margin-top: 15vh;
+    animation: fade-in-bottom 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+.highlight {
+    background: linear-gradient(to bottom left, #22d05f 5%, #2b9368); /* Gentle green gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent; /* Hide the original color */
+}
+.mainbox h1::after {
+    content: ""; /* Required for the pseudo-element */
+    display: block; /* Make it a block element */
+    width: 100%; /* Make it full width */
+    height: 0.06em; /* Adjust the height of the underline */
+    background: linear-gradient(to right, rgb(246, 254, 255), rgb(102, 163, 255)); /* Gradient color */
+    position: absolute; /* Position it absolutely */
+    left: 0; /* Align to the left */
+    bottom: 0.075em; /* Position below the text */
+    z-index: -1; /* Send it behind the text */
+}
+
+#subhead {
+    animation: fade-in 0.8s ease-in both;
+    animation-delay: 0.2s;
+}
+
+.contentBox {
+    margin-top: 17.5em;
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+    gap: 20vh;
+}
+.contentBox #infoBox {
+    animation: appear linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 50%;
+    border-radius: 1em;
+    /* box-shadow: -12px 12px 2px 1px rgba(0, 0, 255, .2); */
+    box-shadow: -32px 16px rgb(24, 112, 179);
+
+}
+.about {
+    width: 35vw;
+    height: 20vw;
+    background-color: white;
+}
+.demos {
+    width:40vw;
+    height: 20vw;
+    background-color: white;
+    margin-left:auto
+}
+
+.bottom {
+    margin-left: 2em;
+    display: flex;
+    width: 60vw;
+    align-self: flex-start;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 10em;
+}
+.contact {
+    width: 30vw;
+    height: 20vw;
+    background-color: rgb(255, 255, 255);
+
+}
+.getStarted {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    padding: 15px 30px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+.getStarted a {
+    text-decoration: none;
+}
+#imgContentBar {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#infoBox h2 {
+    margin-top: 1em;
+    margin-left: 1em;
+    font-weight: 800;
+    font-size: xx-large;
+}
+#infoBox p, li {
+    margin-left: 2em;
+    margin-top: 1em;
+    margin-right: 2em;
+    line-height: 1.5em;
+}
+#infoBox {
+    overflow: hidden;
+}
+
+.blueBold {
+    font-weight: bold;
+    color: rgb(2, 91, 224);
+}
+
+img {
+    width: 460px;
+    height: auto;
+    border-radius: .5rem;
+    animation: appear linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 50%;
+}
+#imgCaption {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+    animation: appear linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 50%;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        scale: 0.5;
+    }
+    to {
+        opacity: 1;
+        scale: 1;
+    }
+}
+
+@keyframes gradientFade {
+    from {
+        background: linear-gradient(to right, rgb(234, 254, 254), rgb(170, 217, 255));
+    }
+    to {
+        background: rgb(170, 217, 255, 0.1);
+    }
+}
+@-webkit-keyframes fade-in-bottom {
+    0% {
+      -webkit-transform: translateY(50px);
+              transform: translateY(50px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateY(0);
+              transform: translateY(0);
+      opacity: 1;
+    }
+  }
+@keyframes fade-in-bottom {
+    0% {
+        -webkit-transform: translateY(50px);
+                transform: translateY(50px);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
+        opacity: 1;
+    }
+}
+@-webkit-keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+  
+  
