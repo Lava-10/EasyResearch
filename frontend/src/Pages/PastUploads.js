@@ -7,6 +7,35 @@ const PastUploads = () => {
   const [uploads, setUploads] = useState([]);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/status', {
+          credentials: 'include',
+        });
+        const data = await response.json();
+        setIsAuthenticated(data.isAuthenticated);
+      } catch (error) {
+        console.error('Failed to check authentication status:', error);
+      }
+    };
+
+    const fetchUploads = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/toJson/research-papers');
+        const data = await response.json();
+        setUploads(data);
+      } catch (error) {
+        console.error('Failed to fetch past uploads:', error);
+      }
+    };
+
+    checkAuthStatus();
+    if (isAuthenticated) {
+      fetchUploads();
+    }
+  }, [isAuthenticated]);
+
   const handleSelectUpload = (upload) => {
     navigate(`/render-view/${upload.fileName}`, {
       state: {
@@ -17,26 +46,6 @@ const PastUploads = () => {
       },
     });
   };
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const authResponse = await fetch('http://localhost:5000/api/auth/status', {
-          credentials: 'include',
-        });
-        const authData = await authResponse.json();
-        setIsAuthenticated(authData.isAuthenticated);
-
-        if (authData.isAuthenticated) {
-          const uploadsResponse = await fetch('http://localhost:5000/api/toJson/research-papers');
-          const uploadsData = await uploadsResponse.json();
-          setUploads(uploadsData);
-        }
-      } catch (error) {
-        console.error('Error during initialization:', error);
-      }
-    })();
-  }, []);
 
   if (!isAuthenticated) {
     return (
@@ -50,44 +59,40 @@ const PastUploads = () => {
     <div className="wrapper">
       <div className="headAndFirst">
         <h2>Past Uploads</h2>
-
-        {uploads.length > 0 ? (
-          <>
-            <div
-              className="recentUpload"
-              onClick={() => handleSelectUpload(uploads[0])}
-            >
-              <a id="uploadWrapperLink">
-                <h1>{uploads[0].title}</h1>
-                <div id="dateID">
-                  <h3>{uploads[0].doi}</h3>
-                  <h3>{new Date(uploads[0].dateAccessed).toLocaleDateString()}</h3>
-                </div>
-              </a>
-            </div>
-
-            {uploads.slice(1).map((upload, index) => (
-              <div
-                key={upload._id || index}
-                className="genUploads"
-                onClick={() => handleSelectUpload(upload)}
-              >
-                <a id="uploadWrapperLink">
-                  <h1>{upload.title}</h1>
-                  <div id="dateID">
-                    <h3>{upload.doi}</h3>
-                    <h3>{new Date(upload.dateAccessed).toLocaleDateString()}</h3>
-                  </div>
-                </a>
+        {uploads.length > 0 && (
+          <div className="recentUpload" onClick={() => handleSelectUpload(uploads[0])}>
+            <a id="uploadWrapperLink">
+              <h1>{uploads[0].title}</h1>
+              <div id="dateID">
+                <h3>{uploads[0].doi}</h3>
+                <h3>{new Date(uploads[0].dateAccessed).toLocaleDateString()}</h3>
               </div>
-            ))}
-          </>
-        ) : (
-          <div className="login-prompt">
-            <h2>No uploads found.</h2>
+            </a>
           </div>
         )}
       </div>
+
+      {uploads.slice(1).map((upload, index) => (
+        <div 
+          key={upload._id || index}
+          className="genUploads"
+          onClick={() => handleSelectUpload(upload)}
+        >
+          <a id="uploadWrapperLink">
+            <h1>{upload.title}</h1>
+            <div id="dateID">
+              <h3>{upload.doi}</h3>
+              <h3>{new Date(upload.dateAccessed).toLocaleDateString()}</h3>
+            </div>
+          </a>
+        </div>
+      ))}
+
+      {uploads.length === 0 && (
+        <div className="login-prompt">
+          <h2>No uploads found.</h2>
+        </div>
+      )}
     </div>
   );
 };
