@@ -1,28 +1,25 @@
-// /config/sessionManager.js
+// /config/passport.js
 
-const session = require('express-session');
-const RedisStore = require('connect-redis').default;
-const { createClient } = require('redis');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const dotenv = require('dotenv');
 
 dotenv.config();
 
-const redisClient = createClient({
-  url: process.env.REDIS_URL || 'redis://localhost:6379',
-});
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: 'http://localhost:5000/api/auth/google/callback', // Match your redirect URI
+    },
+    (accessToken, refreshToken, profile, done) => {
+      // Use the profile information to check or create a user in your database
+      return done(null, profile);
+    }
+  )
+);
 
-redisClient.connect().catch(console.error);
-
-const sessionMiddleware = session({
-  store: new RedisStore({ client: redisClient }),
-  secret: process.env.SESSION_SECRET || 'super-secret-key',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    secure: false, // set to true if using HTTPS
-    httpOnly: true,
-    maxAge: 1000 * 60 * 60 * 24, // 1 day
-  },
-});
-
-module.exports = sessionMiddleware;
+// Serialize and deserialize user to maintain session data
+passport.serializeUser((user, done) => done(null, user));
+passport.deserializeUser((user, done) => done(null, user));
