@@ -1,12 +1,12 @@
-# Abstractify
-Abstractify is a platform designed to simplify research by generating visual abstracts from research papers, making complex information more accessible and understandable. Built with the MERN stack and powered by Google’s Gemini model, Abstractify converts uploaded research PDFs into aesthetically cohesive abstracts, including diagrams, graphs, and key points. These visual summaries are dynamically rendered for quick, easy comprehension.
+# EasyResearch
+EasyResearch is a platform designed to simplify research by generating visual abstracts from research papers, making complex information more accessible and understandable. Built with the MERN stack and powered by Google’s Gemini model, EasyResearch converts uploaded research PDFs into aesthetically cohesive abstracts, including diagrams, graphs, and key points. These visual summaries are dynamically rendered for quick, easy comprehension.
 
 Key features include:
 - Automated Visual Abstracts: The app generates a harmonious layout of summarized data, diagrams, and charts.
 - Efficient Reuse of Data: Visual abstracts are saved in a global database, reducing regeneration time and token usage.
 - Interactive React-Live Rendering: Uses React-Live to compile visual elements in real-time.
 - User Profiles and Google OAuth: Secure user authentication and saved profiles for fast access to past abstracts.
-- Abstractify transforms how users engage with academic papers, saving time and enhancing the research experience.
+- EasyResearch transforms how users engage with academic papers, saving time and enhancing the research experience.
   
 ## 1. Download Necessary Modules
 - In backend, run npm install
@@ -30,5 +30,4 @@ Key features include:
 - Navigate to localhost:3000/
 - Enjoy!
 
-### Contact anagrath3@gatech.edu for any questions and/or concerns
-"# EasyResearch" 
+
