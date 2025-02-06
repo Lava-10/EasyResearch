@@ -1,8 +1,8 @@
-imported React from 'react';
-imported '../CSS files/Home.css';
-imported geko from '../Images/geko.jpg';
-imported sample from '../Images/Output.png';
-imported { Link } from 'react-router-dom';
+import React from 'react';
+import '../CSS files/Home.css';
+import geko from '../Images/geko.jpg';
+import sample from '../Images/Output.png';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
